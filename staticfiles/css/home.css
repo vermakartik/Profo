@@ -1,0 +1,18 @@
+.main{
+    position: relative;
+    padding-left: 24px;
+    padding-right: 24px;
+    top: 50%;
+}
+
+.main a{
+    padding: 0px 8px;
+    font-size: 36px;
+    border-bottom: 2px solid #e91e63;
+    transition: all 0.25s cubic-bezier(0.4, 0.1, 0.4, 1.0);
+}
+
+.main a:hover{
+    background: #e91e63;
+    color: white !important;
+}

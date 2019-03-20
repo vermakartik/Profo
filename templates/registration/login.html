@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    Login
+{% endblock %}
+{% block body %}
+    <div class="height_100">
+        <div class="form-container center-h" >
+            <div>
+                <p class="form-title">Sign In</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td><label>Username</label></td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Password</label></td>
+                        <td>{{form.password}}</td>
+                    </tr>
+                    <div class="form-link">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <div>
+                    <div class="form-submit-container">
+                            <div style="text-align: left;">
+                                <a href="{% url 'accounts:register' %}" class="text-button" style="display: block;">Create account</a>
+                            </div>
+                            <div style="text-align: right;">
+                                <button class="primary-button" >Submit</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

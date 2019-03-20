@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+    Sign Up 
+{% endblock %}
+{% block body %}
+<div class="height_100">
+        <div class="form-container center-h" >
+            <div>
+                <p class="form-title">Sign Up</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <p>
+                            {{field.label_tag}}
+                            {{field}}
+                            {% for error in field.errors %}
+                                <p>{{error}}</p>
+                            {% endfor %}
+                        </p> 
+                    {% endfor %}
+                    <div class="form-submit-container"  >
+                        <div>
+                            <a href='{% url "login" %}'>
+                                Sign In
+                            </a>
+                        </div>
+                        <div style="text-align: right;">
+                            <button class="primary-button" >Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
