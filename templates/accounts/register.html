@@ -3,10 +3,10 @@
     Sign Up 
 {% endblock %}
 {% block body %}
-<div class="height_100">
-        <div class="form-container center-h" >
+<div>
+        <div>
             <div>
-                <p class="form-title">Sign Up</p>
+                <p>Sign Up</p>
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
@@ -18,14 +18,14 @@
                             {% endfor %}
                         </p> 
                     {% endfor %}
-                    <div class="form-submit-container"  >
+                    <div>
                         <div>
                             <a href='{% url "login" %}'>
                                 Sign In
                             </a>
                         </div>
-                        <div style="text-align: right;">
-                            <button class="primary-button" >Submit</button>
+                        <div >
+                            <button>Submit</button>
                         </div>
                     </div>
                 </form>

@@ -16,7 +16,10 @@ def user_status_define(request):
     elif request.method == "GET":
         return render(request, 'Essentials/user_status.html')
 
-
 def user_profile_form(request, user_status):
-    if user_status == 'student':
-        return redirect('student:profile_form')
+        print(user_status)
+        if user_status == 'student':
+                return redirect('student:profile_form')
+        elif user_status == 'teacher':
+                return redirect('teachers:profile_form')
+                

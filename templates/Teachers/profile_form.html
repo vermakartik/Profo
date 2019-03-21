@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+    Form-Teacher
+{% endblock %}
+{% block body %}
+    <div>
+        <div style="width: 80%;">
+            <div class="form">
+                <p class="form-title">Profile Form - <span style="text-transform:capitalize">{{ form_type }}</span></p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div>
+                    <div class="form-submit-container">
+                            <div style="text-align: left;">
+                                <button class="primary-button" >Submit</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

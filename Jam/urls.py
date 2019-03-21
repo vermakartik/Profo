@@ -25,4 +25,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('user/', include('Essentials.urls')),
     path('student/', include('Student.urls')),
+    path('teacher/', include('Teachers.urls')),
+    path('department/', include('Department.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

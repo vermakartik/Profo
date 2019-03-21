@@ -3,23 +3,22 @@
     User Status
 {% endblock %}
 {% block body %}
-    <div class="height_100">
-        <div class="form-container center-h" >
+    <div>
+        <div>
             <div>
-                <p class="form-title">Select User Type</p>
+                <p>Select User Type</p>
                 <form method="post">
                     {% csrf_token %}
-                    <div style="padding: 24px 0px; text-align: left;">
+                    <div>
                         <p>
-                            <div><input type="radio" name="user_status" value="student" checked style="display: inline; width: auto;"> <span class="user_status_label"> Student </span><br /></div>
-                            <div><input type="radio" name="user_status" value="teacher" style="display: inline; width: auto;"> <span class="user_status_label">Teacher</span> <br /></div>
+                            <div><input type="radio" name="user_status" value="student" checked> <span> Student </span><br /></div>
+                            <div><input type="radio" name="user_status" value="teacher"> <span>Teacher</span> <br /></div>
                         </p>
                     </div>
                     <div>
-                    <div class="form-submit-container">
-                            <div></div>
-                            <div style="text-align: right;">
-                                <button class="primary-button" >Next</button>
+                    <div>
+                            <div>
+                                <button>Next</button>
                             </div>
                     </div>
                 </form>
