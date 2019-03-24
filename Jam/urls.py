@@ -27,4 +27,6 @@ urlpatterns = [
     path('student/', include('Student.urls')),
     path('teacher/', include('Teachers.urls')),
     path('department/', include('Department.urls')),
+    path('test/', include('CTest.urls')),
+    path('not_found/', TemplateView.as_view(template_name = 'not_found.html'), name="404_not_found")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

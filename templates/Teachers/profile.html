@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
     <a href="{% url 'user:home' %}">Home</a>
+    <a href="{% url 'ctest:new_test' %}">New Test</a>
+    <a href="{% url 'teachers:permission_list' %}">Check Permission List</a>
+    <ul>
+    {% for test in profile.test_set.all %}
+        <li><a href="{% url 'ctest:view_test' test.id %}">{{ test.test_name }}</a></li>
+    {% endfor %}
+    </ul>
     Response Successfully Submitted
 {% endblock %}

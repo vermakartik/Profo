@@ -1,3 +1,13 @@
 {% extends 'base.html' %}
-Response Submitted!
-{{ details }}
+{% block title %}
+    Profile-Student
+{% endblock %}
+{% block body %}
+    <a href="{% url 'student:test_list' %}">View Test List</a>
+    {{ profile.student_user.username }}
+    <ul>
+        {% for stest in profile.studenttestmodel_set.all %}
+           <li>{{stest.test_id.test_name}} -- {{stest.is_permitted}} -- <a href="{% url 'student:test_attempt' stest.test_id.id %}">Attempt</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

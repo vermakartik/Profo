@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MaxLengthValidator, MinLengthValidator
 from Essentials.models import CategoryCasteModel
 from django.contrib.auth.models import User
+from CTest.models import Test, Question, Answer
 
 # Create your models here.
 
@@ -45,3 +46,26 @@ class StudentSummaryModel(models.Model):
     student_mobile = models.CharField(max_length=10, validators=[MaxLengthValidator(10), MinLengthValidator(10)], default=DEFAULT_INT, null=False, blank=False)
     student_emergency_contact = models.CharField(max_length=10, validators=[MaxLengthValidator(10), MinLengthValidator(10)], default=DEFAULT_INT, null=False, blank=False)
     student_phone_contact = models.CharField(max_length=10, null=True, blank=True)
+
+INT_NOT_PERMITTED = 1
+INT_REQUESTED = 2
+INT_PERMITTED = 3
+
+class QuestionResponse(models.Model):
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    student_id = models.ForeignKey(StudentSummaryModel, on_delete=models.CASCADE)
+
+class StudentTestModel(models.Model):
+    PERMISSION_STATUS = (
+        (INT_NOT_PERMITTED, 'not-permitted'),
+        (INT_REQUESTED, 'requested'),
+        (INT_PERMITTED, 'permitted'),
+    )
+    student_id = models.ForeignKey(StudentSummaryModel, on_delete=models.CASCADE)
+    test_id = models.ForeignKey(Test, on_delete=models.CASCADE)
+    student_score = models.IntegerField(default=-1)
+    is_permitted = models.CharField(max_length=2, choices = PERMISSION_STATUS, default=INT_REQUESTED, null=False, blank=False)
+
+    class Meta:
+        unique_together = ('student_id', 'test_id')

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'Teachers',
     'Department',
+    'CTest'
 ]
 
 MIDDLEWARE = [

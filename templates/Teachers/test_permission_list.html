@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Test - Permissions 
+{% endblock %}
+{% block body %}
+    <ul>
+        {% for pitem in permission_list %}
+            <li>
+                {{pitem.student_id.student_user.username}}-{{pitem.test_id.test_name}}
+                <a href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=GRANTED">Accept</a> | 
+                <a href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=REJECTED">Reject</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

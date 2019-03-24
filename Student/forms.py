@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from Student import models
 
 class StudentGeneralProfileModelForm(ModelForm):
@@ -20,4 +20,7 @@ class StudentSummaryModelForm(ModelForm):
     class Meta:
         model = models.StudentSummaryModel
         exclude = ('student_user',)
+        widgets = {
+            'student_dob': DateInput(format=('%d-%m-%Y'))
+        }
 

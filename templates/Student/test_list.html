@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Tests List
+{% endblock %}
+{% block body %}
+    <a href="{% url 'student:profile' %}">Profile</a>
+    <ul>
+    {% for item in test_list %}
+        <li>
+            <div>
+                {{item.test_name}}
+                <a href="{% url 'student:test_join' %}?test_id={{ item.id }}">Join</a>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

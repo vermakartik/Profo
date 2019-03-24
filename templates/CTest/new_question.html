@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+    New Question
+{% endblock %}
+{% block body %}
+    <form method="POST" action="{% url 'ctest:new_question' test_id %}">
+        {% csrf_token %}
+        {{ question_form.as_p }}
+        {% for answer_form in answer_form_set %}
+            {{ answer_form.as_p }}
+        {% endfor %}
+        <button>Submit</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Test
+{% endblock %}
+{% block body %}
+    <a href="{% url 'teachers:profile' %}">Profile</a>
+    <h2>{{test.test_name}}</h2>
+    {% for question in test.question_set.all %}
+        <p>{{question.question_text}}</p>
+        <ul>
+            {% for answer in question.answer_set.all %}
+                <li>{{answer.answer_text}} - {{ answer.is_answer_correct }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    <a href="{% url 'ctest:new_question' test_id=test.id %}">New Question</a>
+{% endblock %}
