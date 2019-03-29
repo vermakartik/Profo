@@ -5,7 +5,12 @@
 {% block body %}
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {% render_field field class+="form-control" %}
+            </div>
+        {% endfor %}
         <button>Submit</button>
     </form>
 {% endblock %}

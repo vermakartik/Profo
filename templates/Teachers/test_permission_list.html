@@ -3,12 +3,23 @@
     Test - Permissions 
 {% endblock %}
 {% block body %}
-    <ul>
+    {% include 'teachers/nav_teachers.html' %}
+    <h4 class="p-2 bg-dark text-light text-center" style="letter-spacing: 1px;">Requests</h4>
+    <ul class="list-style-type-none" style="padding: 0;">
         {% for pitem in permission_list %}
             <li>
-                {{pitem.student_id.student_user.username}}-{{pitem.test_id.test_name}}
-                <a href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=GRANTED">Accept</a> | 
-                <a href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=REJECTED">Reject</a>
+                <div class="row border m-2 rounded pt-2 pb-2">
+                    <div class="col-12">
+                        <div><span class="font-weight-bold">Test Name:</span> <span>{{ pitem.test_id.test_name }}</span></div>
+                        <div><span class="font-weight-bold">Student id:</span> {{pitem.student_id.student_user.username}}</div>
+                        <p></p>
+                    </div>
+                    <div class="col-12 text-right"> 
+                        <a class="btn font-roboto btn-danger btn-sm" href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=REJECTED">Deny</a>
+                        <a class="btn font-roboto btn-success btn-sm" href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&permission_status=GRANTED">Allow</a>
+                    </div>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>

@@ -1,14 +1,37 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
     New Question
 {% endblock %}
 {% block body %}
-    <form method="POST" action="{% url 'ctest:new_question' test_id %}">
-        {% csrf_token %}
-        {{ question_form.as_p }}
-        {% for answer_form in answer_form_set %}
-            {{ answer_form.as_p }}
-        {% endfor %}
-        <button>Submit</button>
-    </form>
+    <div>
+        <div class="m-2">
+            <div>
+                <p class="font-weight-bold">Create New Question</p>
+            </div>
+            <form method="POST" action="{% url 'ctest:new_question' test_id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ question_form.question_text.label_tag }}
+                    {% render_field question_form.question_text class+="form-control" %}
+                </div>
+                <div>
+                    {% for answer_form in answer_form_set %}
+                        <div>
+                            {{ answer_form.answer_text.label_tag }}
+                            {% render_field answer_form.answer_text class+="form-control" %}
+                            {{ answer_form.is_answer_correct.label_tag }}
+                            {% render_field answer_form.is_answer_correct %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-primary rounded-lg">Submit</button>
+                </div>
+            </form>
+            <div class="float-top-right mr-2 mt-2">
+                <a href="{% url 'ctest:view_test' test_id %}"><i class="material-icons">clear</i></a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

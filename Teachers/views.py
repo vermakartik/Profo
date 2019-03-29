@@ -52,7 +52,7 @@ def check_permission_list(request):
         try:
             studenttest.save()
             print('student_test_status', str(studenttest.is_permitted))
-        except Exception as err: 
+        except Exception as err:
             context_object['error'] = err
         return redirect('teachers:permission_list')
 

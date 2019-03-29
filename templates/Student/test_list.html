@@ -3,13 +3,16 @@
     Tests List
 {% endblock %}
 {% block body %}
-    <a href="{% url 'student:profile' %}">Profile</a>
-    <ul>
+    {% include 'Student/nav_student.html' %}
+    <ul class="list-style-type-none" style="padding: 0;">
     {% for item in test_list %}
-        <li>
+        <li class="border rounded-lg p-2 m-2">
             <div>
-                {{item.test_name}}
-                <a href="{% url 'student:test_join' %}?test_id={{ item.id }}">Join</a>
+                <div><span class="font-weight-bold">Test Name:</span> <span>{{item.test_name}}</span></div>
+                <div><span class="font-weight-bold">Teacher Name:</span> <span>{{item.teacher_id.teacher_user.username}}</span></div>
+                <div class="text-right">
+                    <a href="{% url 'student:test_join' %}?test_id={{ item.id }}"><span class="align-top">Request Join</span> <i class="material-icons">arrow_forward</i></a>
+                </div>
             </div>
         </li>
     {% endfor %}

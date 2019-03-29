@@ -1,0 +1,10 @@
+{%extends 'base.html' %}
+{% block title %}
+{% endblock %}
+{% block body %}
+    <div class="rounded bg-warning m-2 p-2 text-center">
+        <p class="font-weight-bold" style="font-size: 24px;">Thank You, for taking the test!</p>
+        <p class="mt-4 mb-4"><span>You Scored</span><br /><span>10/10</span></p>
+        <a href="{% url 'student:profile' %}"><span class="align-top">Go Back Home</span><i class="material-icons">arrow_forward</i></a>
+    </div>
+{% endblock %}

@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
     Sign Up 
 {% endblock %}
 {% block body %}
-<div>
-        <div>
+    <div class="row m-1 mt-4">
+        <div class="col-12">
+            <div class="text-center">
+                <h4>Sign Up</h4>
+            </div>
             <div>
-                <p>Sign Up</p>
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                        <p>
+                        <div class="form-group">
                             {{field.label_tag}}
-                            {{field}}
+                            {% render_field field class+='form-control' %}
                             {% for error in field.errors %}
-                                <p>{{error}}</p>
+                                <p class="">{{error}}</p>
                             {% endfor %}
-                        </p> 
+                        </div> 
                     {% endfor %}
-                    <div>
-                        <div>
-                            <a href='{% url "login" %}'>
-                                Sign In
-                            </a>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <span class="align-middle">
+                                <a href='{% url "login" %}' class="mr-2 small font-weight-bold text-decoration-none font-montserrat">
+                                    Sign In
+                                </a>
+                            </span>
                         </div>
-                        <div >
-                            <button>Submit</button>
+                        <div class="col-6 text-right">
+                            <button class="btn btn-primary rounded-sm">Submit</button>
                         </div>
                     </div>
                 </form>

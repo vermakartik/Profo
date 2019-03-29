@@ -51,6 +51,10 @@ INT_NOT_PERMITTED = 1
 INT_REQUESTED = 2
 INT_PERMITTED = 3
 
+INT_ATTEMPTED = 4
+INT_NOT_ATTEMPTED = 5
+INT_DISQUALIFIED = 6
+
 class QuestionResponse(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
@@ -62,10 +66,18 @@ class StudentTestModel(models.Model):
         (INT_REQUESTED, 'requested'),
         (INT_PERMITTED, 'permitted'),
     )
+
+    ATTEMPT_STATUS = (
+        (INT_ATTEMPTED, 'attempted'),
+        (INT_DISQUALIFIED, 'disqualified'),
+        (INT_NOT_ATTEMPTED, 'not-attempted'),
+    )
+
     student_id = models.ForeignKey(StudentSummaryModel, on_delete=models.CASCADE)
     test_id = models.ForeignKey(Test, on_delete=models.CASCADE)
     student_score = models.IntegerField(default=-1)
-    is_permitted = models.CharField(max_length=2, choices = PERMISSION_STATUS, default=INT_REQUESTED, null=False, blank=False)
+    is_permitted = models.CharField(max_length=2, choices = PERMISSION_STATUS, default=INT_REQUESTED, null=False, blank = False)
+    attempt_status = models.CharField(choices=ATTEMPT_STATUS, max_length=2, default = INT_NOT_ATTEMPTED, null = False, blank = False)
 
     class Meta:
         unique_together = ('student_id', 'test_id')

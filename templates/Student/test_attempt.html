@@ -3,20 +3,26 @@
     Test Attempt
 {% endblock %}
 {% block body %}
-    <form method="POST">
-    {% csrf_token %}
-    <ul>
-        {% for question in test.question_set.all %}
-            <li>
-                <p>{{question.question_text}} ?</p>
-                <div>
-                    {% for answer in question.answer_set.all %}
-                        <input type="radio" name="{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
-                    {% endfor %}
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    <button>Submit</button>
-    </form>
+    <div class="m-2">
+        <form action="{% url 'student:test_attempt' test.id %}" method="post">
+        {% csrf_token %}
+        <ul class="list-style-type-none p-0">
+            {% for question in test.question_set.all %}
+                <li class="border rounded-lg p-2">
+                    <div>
+                        <p class="font-weight-bold"><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
+                    </div>
+                    <div>
+                        {% for answer in question.answer_set.all %}
+                            <input type="radio" name="{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
+                        {% endfor %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="text-right">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
 {% endblock %}

@@ -3,23 +3,21 @@
     User Status
 {% endblock %}
 {% block body %}
-    <div>
+    <div class="container">
         <div>
-            <div>
-                <p>Select User Type</p>
+            <div class="mt-4 border p-2 rounded-lg">
+                <h3 class="text-center font-weight-bold">Select User Type</h3>
                 <form method="post">
                     {% csrf_token %}
-                    <div>
+                    <div class="text-center">
                         <p>
                             <div><input type="radio" name="user_status" value="student" checked> <span> Student </span><br /></div>
                             <div><input type="radio" name="user_status" value="teacher"> <span>Teacher</span> <br /></div>
                         </p>
                     </div>
                     <div>
-                    <div>
-                            <div>
-                                <button>Next</button>
-                            </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary">Next</button>                         
                     </div>
                 </form>
             </div>

@@ -3,7 +3,14 @@
     404-Not Found
 {% endblock %}
 {% block body %}
-    <div>
-        404 Not Found!
+    <div class="container">
+        <div class="shadow text-center bg-danger text-light rounded-lg mt-4 p-4 font-weight-bold font-montserrat">
+            <span class="display-3 font-weight-bold">404 </span><br /> <span class="display-4">Not Found!</span><br />
+            <span class="display-4">;-(</span>
+            
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'login' %}"> <span class="align-top">Go Back Home</span><i class="material-icons align-bottom">arrow_forward</i></a>
+        </div>
     </div>
 {% endblock %}

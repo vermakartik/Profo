@@ -37,12 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Custom Apps
     'Student',
     'Essentials',
     'accounts',
     'Teachers',
     'Department',
-    'CTest'
+    'CTest',
+
+    # Third Party Installed Apps
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -132,5 +137,5 @@ STATICFILES_DIRS=[
 ]
 
 LOGIN_REDIRECT_URL="user:home"
-LOGOUT_REDIRECT_URL="user:home"
+LOGOUT_REDIRECT_URL="login"
 

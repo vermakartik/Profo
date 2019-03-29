@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
     Form-Student
 {% endblock %}
 {% block body %}
-    <div>
-        <div style="width: 80%;">
-            <div class="form">
-                <p class="form-title">Profile Form - <span style="text-transform:capitalize">{{ form_type }}</span></p>
+    <div class="m-2">
+        <div>
+            <div>
+                <h4 class="font-weight-bold text-center">Complete Your Profile</h4>
                 <form method="post">
                     {% csrf_token %}
                     {% for form in form_set %}
-                        {{ form.as_p }}
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field.label_tag}}
+                                {% render_field field class+="form-control" %}
+                            </div>
+                        {% endfor %}
                     {% endfor %}
                     <div>
-                    <div class="form-submit-container">
-                            <div style="text-align: left;">
-                                <button class="primary-button" >Submit</button>
-                            </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" >Submit</button>
                     </div>
                 </form>
             </div>

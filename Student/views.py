@@ -8,6 +8,7 @@ from accounts import models as accounts_models
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
+from CTest import utils as ctest_utils
 
 student_model_fields = [
         'studentRollNumber', 
@@ -88,10 +89,24 @@ def test_join(request):
                 pass
         return redirect('student:test_list')
 
-@csrf_protect
 def test_attempt(request, test_id):
+        if request.method == "POST":        
+                print('Got Test Submitted')
+                print(request.POST)
+                student_score = ctest_utils.evaluate(request.POST)
+                print('type of request.user Object is -> ')
+                print(type(request.user))
+                test_obj = Test.objects.get(id = test_id)
+                student_id = models.StudentSummaryModel.objects.get(student_user = User.objects.get(username = request.user))
+                student_test = models.StudentTestModel.objects.get(student_id = student_id, test_id = test_obj)
+                setattr(student_test, 'student_score', student_score)
+                setattr(student_test, 'attempt_status', models.INT_ATTEMPTED)
+                student_test.save()
+                return redirect('student:after_test', test_id = test_id)
         test = Test.objects.get(id = test_id)
-        request = RequestContext(request)
         print(test)
-        return render_to_response('Student/test_attempt.html', {'test': test}, request)
-        
+        return render(request, 'Student/test_attempt.html', {'test': test})
+
+def after_test(request, test_id):
+        return render(request, 'Student/thankaftertest.html')
+

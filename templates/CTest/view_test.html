@@ -3,15 +3,35 @@
     Test
 {% endblock %}
 {% block body %}
-    <a href="{% url 'teachers:profile' %}">Profile</a>
-    <h2>{{test.test_name}}</h2>
-    {% for question in test.question_set.all %}
-        <p>{{question.question_text}}</p>
-        <ul>
-            {% for answer in question.answer_set.all %}
-                <li>{{answer.answer_text}} - {{ answer.is_answer_correct }}</li>
+    {% include 'teachers/nav_teachers.html' %}
+    <div class="m-2">
+        <div>
+            <div class="small">Test Name</div>
+            <p class="font-weight-bold">{{test.test_name}}</p>
+        </div>
+        {% if test.question_set.all.count == 0 %}
+            <p class="lead font-weight-bold" style="color: #e2e1e0;">No Questions Yet!</p>
+        {% else %}
+            {% for question in test.question_set.all %}
+                <div class="rounded-lg p-2 mt-2 mb-2 border bg-light">
+                    <div class="font-weight-600">
+                        <p><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
+                    </div>
+                    <div>
+                        <ol type="a" class="text-left" >
+                            {% for answer in question.answer_set.all %}
+                                <li>
+                                    {{answer.answer_text}}
+                                    {% if answer.is_answer_correct == True %}
+                                    <span class="text-success ml-2"><i class="fas fa-check"></i></span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
-    {% endfor %}
-    <a href="{% url 'ctest:new_question' test_id=test.id %}">New Question</a>
+        {% endif %}
+    </div>
+    <a href="{% url 'ctest:new_question' test_id=test.id %}" class="mr-2 mb-2 pl-2 pr-2 float-bottom btn btn-primary btn-sm shadow font-weight-bold font-montserrat rounded-sides"><span class="mr-2 ml-1"><i class="fas fa-plus"></i></span>New Question</a>
 {% endblock %}
