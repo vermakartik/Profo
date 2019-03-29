@@ -3,26 +3,39 @@
     Test Attempt
 {% endblock %}
 {% block body %}
-    <div class="m-2">
-        <form action="{% url 'student:test_attempt' test.id %}" method="post">
-        {% csrf_token %}
-        <ul class="list-style-type-none p-0">
-            {% for question in test.question_set.all %}
-                <li class="border rounded-lg p-2">
-                    <div>
-                        <p class="font-weight-bold"><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
-                    </div>
-                    <div>
-                        {% for answer in question.answer_set.all %}
-                            <input type="radio" name="{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
-                        {% endfor %}
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        <div class="text-right">
-            <button class="btn btn-primary">Submit</button>
+    <div>
+        <div class="text-center pt-2 pb-1 font-montserrat" style="background: #009688; color: #E0F2F1;">
+            <h4>{{test.test_name}}</h4>
         </div>
-        </form>
+        <div class="container p-0">
+            <div class="row m-2">
+                <div class="col-0 col-md-1"></div>
+                <div class="col-12 col-md-10">
+                    <form action="{% url 'student:test_attempt' test.id %}" method="post">
+                    {% csrf_token %}
+                    <ul class="list-style-type-none p-0">
+                        {% for question in test.question_set.all %}
+                        <div class="bg-light rounded-lg border">
+                            <li class="p-2 p-md-4">
+                                <div>
+                                    <p class="font-weight-bold"><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
+                                </div>
+                                <div>
+                                    {% for answer in question.answer_set.all %}
+                                        <input type="radio" name="{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    <div class="text-right">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                </div>
+                <div class="col-0 col-md-1"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

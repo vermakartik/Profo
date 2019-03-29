@@ -4,25 +4,30 @@
     New Test
 {% endblock %}
 {% block body %}
-
-    <div class="mt-4 m-2">
-        <div class="text-center">
-            <h3>Create New Test</h3>
-        </div>
-        <div class="mt-4"> 
-            <form method="POST">
-                {% csrf_token %}
-                {% for field in form%}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {% render_field field class+='form-control'  %}
+    <div class="container p-0">
+        <div class="row mt-4 m-2">
+            <div class="col-0 col-md-2"></div>
+            <div class="col-12 col-md-8">
+                <div class="text-center">
+                    <h3>Create New Test</h3>
                 </div>
-                {% endfor %}
-                <div class="text-right">
-                    <span class="align-middle"><a href="{% url 'teachers:profile' %}" class="font-montserrat font-weight-500 text-decoration-none mr-2">Cancel</a></span>
-                    <button class="btn btn-primary">Create</button>
+                <div class="mt-4"> 
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form%}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class+='form-control'  %}
+                        </div>
+                        {% endfor %}
+                        <div class="text-right mt-4">
+                            <span class="align-middle"><a href="{% url 'teachers:profile' %}" class="font-montserrat font-weight-500 text-decoration-none mr-2">Cancel</a></span>
+                            <button class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+            <div class="col-0 col-md-2"></div>
         </div>
     </div>
 {% endblock %}

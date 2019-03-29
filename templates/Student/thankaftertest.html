@@ -2,9 +2,17 @@
 {% block title %}
 {% endblock %}
 {% block body %}
-    <div class="rounded bg-warning m-2 p-2 text-center">
-        <p class="font-weight-bold" style="font-size: 24px;">Thank You, for taking the test!</p>
-        <p class="mt-4 mb-4"><span>You Scored</span><br /><span>10/10</span></p>
-        <a href="{% url 'student:profile' %}"><span class="align-top">Go Back Home</span><i class="material-icons">arrow_forward</i></a>
+    <div class="container p-0">
+        <div class="row mt-md-4 m-2">
+            <div class="col-0 col-md-2"></div>
+            <div class="col-12 col-md-8 rounded bg-warning p-2 p-md-5 text-center">
+                <p class="font-weight-bold" style="font-size: 24px;">Thank You, for taking the test!</p>
+                <p class="mt-4 mb-4"><span>You Scored</span><br /><span>10/10</span></p>
+                <div class="mt-5">
+                    <a href="{% url 'student:profile' %}" class="text-decoration-none"><span class="align-top">Go Back Home</span><i class="material-icons align-middle">arrow_forward</i></a>
+                </div>
+            </div>
+            <div class="col-0 col-md-2"></div>
+        </div>
     </div>
 {% endblock %}

@@ -38,19 +38,24 @@ def __check_n_fill__(fields, data, contextVar):
                         fieldsNotFound.append(field)
         return (contextVar, fieldsNotFound)
 
-def student_profile_post(request):
-        print('profile post called')
-        print(request.user)
+def student_profile(request):
         user_obj = User.objects.get(username = request.user)
-        print(user_obj)
         student_obj = None
+        context_object = {}
         try:
                 student_obj = models.StudentSummaryModel.objects.get(student_user = user_obj)
-                print(student_obj)   
+                context_object['profile'] = student_obj
+                # print("Got Count -> {!s}".format(student_obj.studenttestmodel_set.all().count()))
+                if student_obj.studenttestmodel_set.all().count() > 0:
+                        not_attempt_test_count = student_obj.studenttestmodel_set.all().exclude(attempt_status=models.INT_ATTEMPTED).count()
+                        context_object['not_attempt_count'] = not_attempt_test_count
+                else:
+                        context_object['not_attempt_count'] = 0
         except:
-                print('object not found')
+                redirect('404_not_found')
         print(student_obj)
-        return render(request, 'Student/profile.html', {'profile': student_obj})
+        # {'profile': student_obj, 'not_attempt_count': }
+        return render(request, 'Student/profile.html', context_object)
 
 def student_profile_form(request):
         if request.method == 'POST':
@@ -81,8 +86,8 @@ def test_join(request):
         print("test Joining Called!")
         test_id = request.GET.get('test_id')
         test = Test.objects.get(id = test_id)
-        student = models.StudentSummaryModel.objects.get(student_user = User.objects.get(username = request.user))
-        student_test = models.StudentTestModel(student_id = student, test_id = test)
+        student_obj = models.StudentSummaryModel.objects.get(student_user = User.objects.get(username = request.user))
+        student_test = models.StudentTestModel(student_id = student_obj, test_id = test)
         try:
                 student_test.save()
         except IntegrityError as err:

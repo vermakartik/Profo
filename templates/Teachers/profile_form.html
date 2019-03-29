@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
     Form-Teacher
 {% endblock %}
 {% block body %}
-    <div>
-        <div style="width: 80%;">
-            <div class="form">
-                <p class="form-title">Profile Form - <span style="text-transform:capitalize">{{ form_type }}</span></p>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div>
-                    <div class="form-submit-container">
-                            <div style="text-align: left;">
-                                <button class="primary-button" >Submit</button>
-                            </div>
+    <div class="container p-0">
+        <div class="row m-2">
+            <div class="col-0 col-md-3 col-lg-4"></div>
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
+                <div class="form">
+                    <div class="text-center">
+                        <p class="font-weight-bold" style="font-size: 24px;">Complete Your Profile<span style="text-transform:capitalize">{{ form_type }}</span></p>
                     </div>
-                </form>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {% render_field field class+='form-control' %}
+                            </div>
+                        {% endfor %}
+                        <div class="text-right">
+                            <button class="btn btn-primary" >Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+            <div class="col-0 col-md-3 col-lg-4"></div>
         </div>
     </div>
 {% endblock %}

@@ -4,31 +4,42 @@
 {% endblock %}
 {% block body %}
     {% include 'Student/nav_student.html' %}
-    {% if profile.studenttestmodel_set.all.count == 0 %}
-        <div class="text-center font-weight-bold mt-4" style="font-size: 24px; color: #e2e1e0">You have No tests Yet! </div>
+    {% if not_attempt_count == 0 %}
+        <div class="text-center font-weight-bold mt-4" style="font-size: 24px; color: #e2e1e0;">You have No tests Yet! </div>
     {% else %}
         <ul class="list-style-type-none p-0">
-            {% for stest in profile.studenttestmodel_set.all %}
-            <li class="border rounded-lg m-2 p-2">
-                <div class="font-weight-bold">{{stest.test_id.test_name}}</div>
-                {% if stest.is_permitted == "1" %}
-                    <div class="mt-2">
-                        Status: <span class="text-danger">Not Permitted</span>
-                    </div>    
-                {% elif stest.is_permitted == "2" %}
-                    <div class="mt-2">
-                        Status: <span class="text-info">Pending</span>
-                    </div>
-                {% elif stest.is_permitted == "3" %}
-                    <div class="mt-2">
-                        Status: <span class="text-success">Approved</span>
-                        <div class="text-right">
-                            <a href="{% url 'student:test_attempt' stest.test_id.id %}" class="btn font-weight-600 btn-primary btn-sm font-montserrat text-decoration-none">Attempt</a>
+            <div class="container p-0">
+                <div class="row">
+                    {% for stest in profile.studenttestmodel_set.all %}
+                    {% if stest.attempt_status != '4' %}
+                        <div class="col-0 col-md-3"></div>
+                        <div class="col-12 col-md-6">
+                            <li class="border rounded-lg m-2 p-2">
+                                <div class="font-weight-bold">{{stest.test_id.test_name}}</div>
+                                
+                                {% if stest.is_permitted == "1" %}
+                                    <div class="mt-2">
+                                        Status: <span class="text-danger">Not Permitted</span>
+                                    </div>    
+                                {% elif stest.is_permitted == "2" %}
+                                    <div class="mt-2">
+                                        Status: <span class="text-info">Pending</span>
+                                    </div>
+                                {% elif stest.is_permitted == "3" %}
+                                    <div class="mt-2">
+                                        Status: <span class="text-success">Approved</span>
+                                        <div class="text-right">
+                                            <a href="{% url 'student:test_attempt' stest.test_id.id %}" class="btn font-weight-600 btn-primary btn-sm font-montserrat text-decoration-none">Attempt</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </li>
                         </div>
-                    </div>
-                {% endif %}
-            </li>
-            {% endfor %}
+                        <div class="col-0 col-md-3"></div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </ul>
     {% endif %}
 {% endblock %}

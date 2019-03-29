@@ -3,7 +3,7 @@ from .forms import TeacherSummaryForm
 from .models import Teacher
 from django.contrib.auth.models import User
 from accounts.models import UserStatus
-from Student.models import StudentTestModel
+from Student.models import StudentTestModel, StudentSummaryModel
 from Student import models as student_models
 from accounts import models as accounts_models
 from CTest import models as ctest_models
@@ -36,22 +36,20 @@ def profile(request):
 
 def check_permission_list(request):
     context_object = {}
-    if 'permission_item' in request.GET and 'permission_status' in request.GET:
+    if 'permission_item' in request.GET and 'permission_status' in request.GET and 'student_id' in request.GET:
         test_obj = ctest_models.Test.objects.get(id=request.GET.get('permission_item'))
-        print('Got Test Obj ->')
+        student_obj = StudentSummaryModel.objects.get(studentRollNumber = request.GET.get('student_id'))
         print(test_obj)
-        studenttest = StudentTestModel.objects.get(test_id = test_obj)
-        print('Got student test object -> ')
+        print(student_obj)
+        studenttest = StudentTestModel.objects.all().filter(test_id = test_obj).filter(student_id = student_obj)[0]
         print(studenttest)
         perm_status = request.GET.get('permission_status')
-        print("Got perm_status -> ", perm_status)
         if perm_status == 'GRANTED':
             setattr(studenttest, 'is_permitted', student_models.INT_PERMITTED)
         elif perm_status == 'REJECTED':
             setattr(studenttest, 'is_permitted', student_models.INT_NOT_PERMITTED)
         try:
             studenttest.save()
-            print('student_test_status', str(studenttest.is_permitted))
         except Exception as err:
             context_object['error'] = err
         return redirect('teachers:permission_list')

@@ -4,17 +4,25 @@
 {% endblock %}
 {% block body %}
     {% include 'Student/nav_student.html' %}
-    <ul class="list-style-type-none" style="padding: 0;">
-    {% for item in test_list %}
-        <li class="border rounded-lg p-2 m-2">
-            <div>
-                <div><span class="font-weight-bold">Test Name:</span> <span>{{item.test_name}}</span></div>
-                <div><span class="font-weight-bold">Teacher Name:</span> <span>{{item.teacher_id.teacher_user.username}}</span></div>
-                <div class="text-right">
-                    <a href="{% url 'student:test_join' %}?test_id={{ item.id }}"><span class="align-top">Request Join</span> <i class="material-icons">arrow_forward</i></a>
-                </div>
+    <div class="container p-0">
+        <div class="row">
+            <div class="col-0 col-md-2"></div>
+            <div class="col-12 col-md-8">
+                <ul class="list-style-type-none" style="padding: 0;">
+                {% for item in test_list %}
+                    <li class="border rounded-lg p-2 m-2 pl-md-3 pr-md-3 pt-md-3">
+                        <div>
+                            <div><span class="font-weight-bold">Test Name:</span> <span>{{item.test_name}}</span></div>
+                            <div><span class="font-weight-bold">Teacher Name:</span> <span>{{item.teacher_id.teacher_user.username}}</span></div>
+                            <div class="text-right">
+                                <a href="{% url 'student:test_join' %}?test_id={{ item.id }}" class="text-decoration-none"><span class="align-top">Request Join</span> <i class="material-icons align-middle">arrow_forward</i></a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
             </div>
-        </li>
-    {% endfor %}
-    </ul>
+            <div class="col-0 col-md-2"></div>
+        </div>
+    </div>
 {% endblock %}

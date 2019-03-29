@@ -1,38 +1,43 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
     Login
 {% endblock %}
 {% block body %}
-    <div class="row">
-    <div class="mt-4 col-12">
-        <div class="text-center">
-            <h4>Sign In</h4>
-        </div>
-        <div class="col">
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for={{form.username.name}}>Username</label>
-                    <input type="text" required class="form-control" name="{{form.username.name}}" id="id_{{form.username.name}}" /> 
-                </div>
-                <div class="form-group">
-                    <label for="{{form.password.name}}">Password</label>
-                    <input type='password' required class="form-control" name="{{form.password.name}}" id="id_{{form.password.name}}">
-                </div>
-                <div>
-                    <a href="#">Forgot Password?</a>
-                </div>
-                <div>
-                <div class="mt-2 row">
-                    <div class="col text-left">
-                        <span class="align-middle"><a href="{% url 'accounts:register' %}" class="text-decoration-none font-weight-bold font-montserrat small mr-2">Create account</a></span>
+    <div class="container p-0">
+    <div class="row m-2">
+        <div class="col-0 col-md-3 col-lg-4"></div>
+        <div class="mt-4 col-md-6 col-12 col-lg-4">
+            <div class="text-center">
+                <h4>Sign In</h4>
+            </div>
+            <div class="col-xs-12">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class+="form-control" %}
+                            {% for error in field.errors %}
+                                <p class="text-danger small">{{error}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <div>
+                        <a href="#">Forgot Password?</a>
                     </div>
-                    <div class="col text-right">
-                        <button class="btn btn-primary">Submit</button>
+                    <div>
+                    <div class="mt-2 row">
+                        <div class="col text-left">
+                            <span class="align-middle"><a href="{% url 'accounts:register' %}" class="text-decoration-none font-weight-bold font-montserrat small mr-2">Create account</a></span>
+                        </div>
+                        <div class="col text-right">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
+        <div class="col-0 col-md-3 col-lg-4"></div>
     </div>
 {% endblock %}
