@@ -37,16 +37,20 @@ def profile(request):
 def check_permission_list(request):
     context_object = {}
     if 'permission_item' in request.GET and 'permission_status' in request.GET and 'student_id' in request.GET:
-        test_obj = ctest_models.Test.objects.get(id=request.GET.get('permission_item'))
-        student_obj = StudentSummaryModel.objects.get(studentRollNumber = request.GET.get('student_id'))
-        print(test_obj)
-        print(student_obj)
-        studenttest = StudentTestModel.objects.all().filter(test_id = test_obj).filter(student_id = student_obj)[0]
+        get_test_id = request.GET.get('permission_item')
+        get_student_roll_number = request.GET.get('student_id')
+        get_perm_status = request.GET.get('permission_status')
+        print("{!s} - {!s} - {!s}".format(get_test_id, get_student_roll_number, get_perm_status))
+        # test_obj = ctest_models.Test.objects.get(id=int(get_test_id))
+        # print(test_obj)
+        # student_obj = StudentSummaryModel.objects.get(studentRollNumber = get_student_roll_number)
+        # print(student_obj)
+        studenttest = StudentTestModel.objects.get(id = get_test_id)
         print(studenttest)
-        perm_status = request.GET.get('permission_status')
-        if perm_status == 'GRANTED':
+        
+        if get_perm_status == 'GRANTED':
             setattr(studenttest, 'is_permitted', student_models.INT_PERMITTED)
-        elif perm_status == 'REJECTED':
+        elif get_perm_status == 'REJECTED':
             setattr(studenttest, 'is_permitted', student_models.INT_NOT_PERMITTED)
         try:
             studenttest.save()

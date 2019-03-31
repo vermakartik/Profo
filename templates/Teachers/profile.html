@@ -3,14 +3,15 @@
     {% include 'teachers/nav_teachers.html' %}
     <div>
         <h3 class="p-2 text-center text-light bg-dark">My Tests</h3>
+        <div class="container p-0">
         {% for test in profile.test_set.all %}
-            <div class="container p-0">
                 <div class="row">
                     <div class="col-0 col-md-2"></div>
                     <div class="col-12 col-md-8">
                         <a href="{% url 'ctest:view_test' test.id %}" class="text-decoration-none">
                             <div class="p-2 p-md-3 pl-md-4 pl-3 m-2 rounded border">
                                 <h4 class="text-dark">{{ test.test_name }}</h4>
+                                <div class="text-dark small mb-3">Test id: {{ test.id }}</div>
                                 <div class="text-dark small">
                                     <div><span>No. Of Questions: </span><span>{{test.question_set.all.count}}</span></div>
                                 </div>
@@ -22,7 +23,8 @@
                     </div>
                     <div class="col-0 col-md-2"></div>
                 </div>
-            </div>
+            
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

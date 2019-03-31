@@ -10,28 +10,28 @@
             No Requests Yet!
         </div>
     {% else %}
-    <div class="container p-0">
         <ul class="list-style-type-none" style="padding: 0;">
+            <div class="container p-0">
+            <div class="row">
             {% for pitem in permission_list %}
-                <div class="row">
                 <div class="col-0 col-md-2"></div>
                 <li class="col-12 col-md-8">
                     <div class="row border m-2 rounded pt-2 pb-2">
                         <div class="col-12">
                             <div><span class="font-weight-bold">Test Name:</span> <span>{{ pitem.test_id.test_name }}</span></div>
+                            <div class="small">Test id: {{ pitem.test_id.id }}</div>
                             <div><span class="font-weight-bold">Student id:</span> {{pitem.student_id.student_user.username}}</div>
-                            <p></p>
                         </div>
                         <div class="col-12 text-right"> 
                             <a class="btn font-roboto btn-danger btn-sm" href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&student_id={{pitem.student_id.studentRollNumber}}&permission_status=REJECTED">Deny</a>
                             <a class="btn font-roboto btn-success btn-sm" href="{% url 'teachers:permission_list' %}?permission_item={{pitem.id}}&student_id={{pitem.student_id.studentRollNumber}}&permission_status=GRANTED">Allow</a>
                         </div>
-                        </div>
                     </div>
                 </li>
                 <div class="col-0 col-md-2"></div>
-                </div>
             {% endfor %}
+            </div>
+            </div>
         </ul>
     </div>
     {% endif %}

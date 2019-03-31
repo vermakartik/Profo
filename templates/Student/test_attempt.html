@@ -15,14 +15,14 @@
                     {% csrf_token %}
                     <ul class="list-style-type-none p-0">
                         {% for question in test.question_set.all %}
-                        <div class="bg-light rounded-lg border">
+                        <div class="bg-light rounded-lg border m-2">
                             <li class="p-2 p-md-4">
                                 <div>
                                     <p class="font-weight-bold"><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
                                 </div>
                                 <div>
                                     {% for answer in question.answer_set.all %}
-                                        <input type="radio" name="{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
+                                        <input type="radio" name="question_{{question.id}}" value="{{answer.id}}"/> {{answer.answer_text}} <br />
                                     {% endfor %}
                                 </div>
                             </li>

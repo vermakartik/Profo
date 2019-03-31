@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile_form/', views.student_profile_form, name="profile_form"),
     path('profile/', views.student_profile, name="profile"),
     path('test_submitted/<int:test_id>', views.after_test, name="after_test"),
+    path('prev_test_list/', views.pervious_test, name="prev_test_list"),
 ]
     

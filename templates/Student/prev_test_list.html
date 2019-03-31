@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    Prev Test List
+{% endblock %}
+{% block body %}
+    {% include  'Student/nav_student.html' %}
+    <ul class="list-style-type-none">
+        <div class="container p-0">
+        <div class="row m-2">
+        {% for test in test_list %}
+            <div class="col-0 col-md-2"></div>
+            <div class="col-12 col-md-8">
+            <li class="border rounded-lg p-2 m-2">
+                <div class="font-weight-bold">{{ test.test_id.test_name }}</div>
+                <div><span class="font-weight-bold">My Score:</span> <span>{{test.student_score}}</span></div>
+                <div class="text-right">
+                    <a href="#" class="text-decoration-none"><span class="align-top">Details</span><span class="align-middle"><i class="material-icons">arrow_forward</i></span></a>
+                </div>
+            </li>
+            </div>
+            <div class="col-0 col-md-2"></div>
+        {% endfor %}
+        </div>
+        </div>
+    </ul>
+{% endblock %}

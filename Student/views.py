@@ -77,10 +77,14 @@ def student_profile_form(request):
                 form_set.append(forms.StudentContactDetailsModelForm())
                 return render(request, 'Student/user_profile_form.html', {'form_set': form_set})
         
-
 def getTestList(request):
-    test_list = Test.objects.all()
-    return render(request, 'Student/test_list.html', {'test_list': test_list})
+        student_id = User.objects.get(username = request.user)
+        print(student_id)
+        student_user = models.StudentSummaryModel.objects.get(student_user = student_id)
+        print(student_id)
+        prev_test_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED)
+        test_list = Test.objects.all().exclude(id__in = prev_test_list)
+        return render(request, 'Student/test_list.html', {'test_list': test_list})
 
 def test_join(request):
         print("test Joining Called!")
@@ -98,11 +102,11 @@ def test_attempt(request, test_id):
         if request.method == "POST":        
                 print('Got Test Submitted')
                 print(request.POST)
-                student_score = ctest_utils.evaluate(request.POST)
-                print('type of request.user Object is -> ')
-                print(type(request.user))
+                student_score_obj = ctest_utils.evaluate(request.POST, test_id)
+                student_score = student_score_obj['correct']
                 test_obj = Test.objects.get(id = test_id)
-                student_id = models.StudentSummaryModel.objects.get(student_user = User.objects.get(username = request.user))
+                student_user_id = User.objects.get(username = request.user)
+                student_id = models.StudentSummaryModel.objects.get(student_user = student_user_id)
                 student_test = models.StudentTestModel.objects.get(student_id = student_id, test_id = test_obj)
                 setattr(student_test, 'student_score', student_score)
                 setattr(student_test, 'attempt_status', models.INT_ATTEMPTED)
@@ -113,5 +117,21 @@ def test_attempt(request, test_id):
         return render(request, 'Student/test_attempt.html', {'test': test})
 
 def after_test(request, test_id):
-        return render(request, 'Student/thankaftertest.html')
+        test_model = models.StudentTestModel.objects.all().filter(test_id__id = test_id).filter(student_id__student_user__username = request.user)[0]
+        context_obj = {}
+        context_obj['student_score'] = test_model.student_score
+        total_count = test_model.test_id.question_set.all().count()
+        context_obj['total_count'] = total_count
+        return render(request, 'Student/thankaftertest.html', context_obj)
+
+def pervious_test(request):
+        context_obj = {}
+        student_id = User.objects.get(username = request.user)
+        print(student_id)
+        student_user = models.StudentSummaryModel.objects.get(student_user = student_id)
+        print(student_id)
+        tests_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED)
+        print(tests_list)
+        context_obj['test_list'] = tests_list
+        return render(request, 'Student/prev_test_list.html', context_obj)
 
