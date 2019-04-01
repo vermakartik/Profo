@@ -4,12 +4,25 @@
 {% endblock %}
 {% block body %}
     {% include 'teachers/nav_teachers.html' %}
-    <div class="text-right p-2 bg-dark">
-        {% if test.is_published == False %}
-            <a href="{% url 'ctest:publish_test' test.id %}" class="btn btn-outline-info">Publish</a>
-        {% else %}
-            <div class="text-light pr-3 font-montserrat text-uppercase" style="letter-spacing: 0px;">Published</div>
-        {% endif %}
+    <div class="fluid-container p-0 bg-dark">
+        <div class="row m-0">
+            <div class="col-8 p-2 mt-1 pl-3 text-left font-roboto">
+                <div class="text-light">
+                    <span class="align-middle">
+                        <span class="font-weight-500">Time:</span> 
+                        {{test.available_time.hour}}h : {{test.available_time.minute}}m: {{test.available_time.second}}s 
+                        <a href="#" class="text-decoration-none text-light"><i class="material-icons align-middle">edit </i></a>
+                    </span>
+                </div>
+            </div>
+            <div class="col-4 text-right p-2">
+                {% if test.is_published == False %}
+                    <a href="{% url 'ctest:publish_test' test.id %}" class="btn btn-outline-info">Publish</a>
+                {% else %}
+                    <div class="text-light pr-3 font-montserrat text-uppercase" style="letter-spacing: 0px;">Published</div>
+                {% endif %}
+            </div>
+        </div>
     </div>
     <div class="m-2">
         <div class="text-center rounded bg-info text-light">

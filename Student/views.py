@@ -113,6 +113,7 @@ def test_attempt(request, test_id):
                 student_test.save()
                 return redirect('student:after_test', test_id = test_id)
         test = Test.objects.get(id = test_id)
+        print("Test Details -> ")
         print(test)
         return render(request, 'Student/test_attempt.html', {'test': test})
 

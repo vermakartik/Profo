@@ -4,6 +4,9 @@
 {% endblock %}
 {% block body %}
     <div>
+        <div class="bg-primary p-3 text-right">
+            <div class="text-light"><span id="hours-display">{{test.available_time.hour}}</span> h : <span id="minutes-display">{{test.available_time.minute}}</span> m : <span id="seconds-display">{{test.available_time.second}}</span> s</div>
+        </div>
         <div class="text-center pt-2 pb-1 font-montserrat" style="background: #009688; color: #E0F2F1;">
             <h4>{{test.test_name}}</h4>
         </div>
@@ -30,7 +33,7 @@
                         {% endfor %}
                     </ul>
                     <div class="text-right">
-                        <button class="btn btn-primary">Submit</button>
+                        <button id="submit-test-button" class="btn btn-primary">Submit</button>
                     </div>
                     </form>
                 </div>
@@ -38,4 +41,38 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+            console.log("calling Script")
+            var timeHours = "{{test.available_time.hour}}"
+            var timeMinutes = "{{test.available_time.minute}}"
+            var timeSeconds = "{{test.available_time.second}}"
+            console.log(timeHours)
+            console.log(timeMinutes)
+            console.log(timeSeconds)
+            var timeAvailableInMilliSecs =  timeHours * 60 * 60 * 1000 + timeMinutes * 60 * 1000 +  timeSeconds * 1000
+            console.log(timeAvailableInMilliSecs)
+            var timerInit = new Date().getTime() + timeAvailableInMilliSecs
+            console.log(timerInit)
+            var x = setInterval(() => {
+                var now = new Date().getTime()
+                var distance = timerInit - now
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+                var elementHour = document.getElementById('hours-display')
+                var elementMinute = document.getElementById('minutes-display')
+                var elementSeconds = document.getElementById('seconds-display')
+                elementHour.innerHTML = hours
+                elementMinute.innerHTML = minutes
+                elementSeconds.innerHTML = seconds
+                if(distance < 0){
+                    clearInterval(x)
+                    elementHour.innerHTML = 0
+                    elementMinute.innerHTML = 0
+                    elementSeconds.innerHTML = 0
+                    var submitTestButton = document.getElementById('submit-test-button');
+                    submitTestButton.click();
+                }
+            }, 1000);
+    </script>
 {% endblock %}

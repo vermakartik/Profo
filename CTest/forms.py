@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import Test, Question, Answer
+from django.contrib.admin.widgets import AdminTimeWidget
 
 class BaseForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -9,7 +10,10 @@ class BaseForm(ModelForm):
 class TestForm(BaseForm):
     class Meta:
         model = Test
-        fields = ['test_name']
+        fields = ['test_name', 'available_time']
+        widgets = {
+            'available_time': AdminTimeWidget(attrs={'type': 'time', 'step': 60})
+        }
 
 class QuestionForm(BaseForm):
     class Meta:

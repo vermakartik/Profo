@@ -5,13 +5,15 @@ from .forms import TestForm, QuestionForm, AnswerForm
 from Teachers import models as teacher_models
 from django.contrib.auth.models import User
 from django.forms import formset_factory
+import datetime
 
 
 # Create your views here.
 def new_test(request):
     if request.method == "POST":
         user_obj = User.objects.get(username = request.user)
-        new_test = Test(test_name = request.POST.get('test_name', ""))
+        print(request.POST)
+        new_test = Test(test_name = request.POST.get('test_name', ""), available_time = datetime.datetime.strptime(request.POST.get('available_time'), '%H:%M').time())
         teacher_id = teacher_models.Teacher.objects.get(teacher_user = user_obj)
         setattr(new_test, 'teacher_id', teacher_id)
         new_test.save()
