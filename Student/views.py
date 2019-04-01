@@ -82,7 +82,7 @@ def getTestList(request):
         print(student_id)
         student_user = models.StudentSummaryModel.objects.get(student_user = student_id)
         print(student_id)
-        prev_test_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED)
+        prev_test_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED, test_id__is_published = False)
         test_list = Test.objects.all().exclude(id__in = prev_test_list)
         return render(request, 'Student/test_list.html', {'test_list': test_list})
 

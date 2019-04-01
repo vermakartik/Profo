@@ -40,11 +40,6 @@ def check_permission_list(request):
         get_test_id = request.GET.get('permission_item')
         get_student_roll_number = request.GET.get('student_id')
         get_perm_status = request.GET.get('permission_status')
-        print("{!s} - {!s} - {!s}".format(get_test_id, get_student_roll_number, get_perm_status))
-        # test_obj = ctest_models.Test.objects.get(id=int(get_test_id))
-        # print(test_obj)
-        # student_obj = StudentSummaryModel.objects.get(studentRollNumber = get_student_roll_number)
-        # print(student_obj)
         studenttest = StudentTestModel.objects.get(id = get_test_id)
         print(studenttest)
         

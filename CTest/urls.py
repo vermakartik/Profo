@@ -7,5 +7,6 @@ urlpatterns = [
     path('edit_test/<int:test_id>', views.edit_test, name = "edit_test"),
     path('view_test/<int:test_id>', views.view_test, name = "view_test"),
     path('<int:test_id>/new_question/', views.new_question, name="new_question"),
+    path('publish/<int:test_id>', views.publish_test, name="publish_test"),
     # path('view_question/', views.view_question, name="new_question"),
 ]

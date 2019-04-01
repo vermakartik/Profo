@@ -83,3 +83,9 @@ def edit_question(request, test_id, question_id):
     question_form = QuestionForm()
     answer_form_set = formset_factory(AnswerForm, extra=4)
     return render(request, 'CTest/new_question.html', {'question_form': question_form, 'answer_form_set': answer_form_set, "test_id": test_id})
+
+def publish_test(request, test_id):
+    test = Test.objects.get(id = test_id)
+    setattr(test, 'is_published', True)
+    test.save()
+    return redirect('ctest:view_test', test_id = test_id)

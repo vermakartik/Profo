@@ -5,6 +5,7 @@ from Teachers.models import Teacher
 class Test(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     test_name = models.CharField(max_length = 1024, default="", null= False, blank=False)
+    is_published = models.BooleanField(default=False)
 
 class Question(models.Model):
     question_text = models.CharField(max_length = 16563, default="", null=False, blank=False)

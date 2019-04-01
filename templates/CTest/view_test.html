@@ -4,6 +4,13 @@
 {% endblock %}
 {% block body %}
     {% include 'teachers/nav_teachers.html' %}
+    <div class="text-right p-2 bg-dark">
+        {% if test.is_published == False %}
+            <a href="{% url 'ctest:publish_test' test.id %}" class="btn btn-outline-info">Publish</a>
+        {% else %}
+            <div class="text-light pr-3 font-montserrat text-uppercase" style="letter-spacing: 0px;">Published</div>
+        {% endif %}
+    </div>
     <div class="m-2">
         <div class="text-center rounded p-2 pl-4 bg-light">
             <p class="font-weight-bold" style="font-size: 24px;">{{test.test_name}}</p>
@@ -34,5 +41,7 @@
             {% endfor %}
         {% endif %}
     </div>
-    <a href="{% url 'ctest:new_question' test_id=test.id %}" class="mr-2 mb-3 mr-md-4 mb-md-4 pl-3 pr-3 pt-2 pb-2 p-md-3 float-bottom btn btn-primary btn-sm shadow font-weight-bold font-montserrat rounded-sides"><span class="mr-2 ml-1 mr-md-2"><i class="fas fa-plus"></i></span>New Question</a>
+    {% if test.is_published == False %}
+        <a href="{% url 'ctest:new_question' test_id=test.id %}" class="mr-2 mb-3 mr-md-4 mb-md-4 pl-3 pr-3 pt-2 pb-2 p-md-3 float-bottom btn btn-primary btn-sm shadow font-weight-bold font-montserrat rounded-sides"><span class="mr-2 ml-1 mr-md-2"><i class="fas fa-plus"></i></span>New Question</a>
+    {% endif %}
 {% endblock %}

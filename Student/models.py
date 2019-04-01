@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MaxLengthValidator, MinLen
 from Essentials.models import CategoryCasteModel
 from django.contrib.auth.models import User
 from CTest.models import Test, Question, Answer
+import datetime
 
 # Create your models here.
 
@@ -28,10 +29,7 @@ class StudentSummaryModel(models.Model):
     )
     student_user = models.OneToOneField(User, on_delete=models.CASCADE)
     studentRollNumber = models.CharField(max_length=MAX_LENGTH_SINGLE, null=False, blank=False, primary_key=True)
-    # studentGeneralDetails = models.OneToOneField(StudentGeneralProfileModel, on_delete=models.CASCADE)
-    # studentFamilyDetails = models.OneToOneField(StudentFamilyDetailsModel, on_delete=models.CASCADE)
-    # studentContactDetails = models.OneToOneField(StudentContactDetailsModel, on_delete=models.CASCADE)
-
+   
     student_first_name = models.CharField(max_length=MAX_LENGTH_SINGLE, default=DEFAULT_STRING, null=False, blank=False)
     student_last_name = models.CharField(max_length=MAX_LENGTH_SINGLE, default=DEFAULT_STRING, null=False, blank=False)
     student_dob = models.DateField(auto_now=False, null=False, blank=False)
@@ -78,6 +76,7 @@ class StudentTestModel(models.Model):
     student_score = models.IntegerField(default=-1)
     is_permitted = models.CharField(max_length=2, choices = PERMISSION_STATUS, default=INT_REQUESTED, null=False, blank = False)
     attempt_status = models.CharField(choices=ATTEMPT_STATUS, max_length=2, default = INT_NOT_ATTEMPTED, null = False, blank = False)
+    test_attempt_date = models.DateField(auto_now=False, default = datetime.datetime.now)
 
     class Meta:
         unique_together = ('student_id', 'test_id')
