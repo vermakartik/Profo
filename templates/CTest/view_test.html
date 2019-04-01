@@ -12,11 +12,11 @@
         {% endif %}
     </div>
     <div class="m-2">
-        <div class="text-center rounded p-2 pl-4 bg-light">
-            <p class="font-weight-bold" style="font-size: 24px;">{{test.test_name}}</p>
+        <div class="text-center rounded bg-info text-light">
+            <p class="font-weight-bold p-2" style="font-size: 24px;">{{test.test_name}}</p>
         </div>
         {% if test.question_set.all.count == 0 %}
-            <div class="text-center">
+            <div class="text-center mt-4">
                 <p class="font-weight-bold" style="color: #e2e1e0; font-size: 24px;">No Questions Yet!</p>
             </div>
         {% else %}
