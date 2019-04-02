@@ -1,6 +1,6 @@
 # Profo
 
-This web project that is specifically designed to digitize the university tests. It is an online test platform that allows teachers to create new tests and students can then attempt the online tests.
+This web project is specifically designed to digitize the university tests. It is an online test platform that allows teachers to create new tests and students can then attempt the online tests.
 
 # Requirements
 
