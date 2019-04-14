@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock %}
+{% block body %}
+    <div class ="container-fluid p-0 ">
+        <div class="bg-light">
+            <div class="container text-center p-4">
+                <div class="jumbotron bg-light"> 
+                    <h1 class="display-4">
+                        Profo
+                    </h1>
+                    <p class="text-dark lead muted-text">
+                        A web platform for digitizing the university tests. A platform that is optimized to work in accordance with the university system.                
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container pt-5 pb-5 text-center">
+            <p class="display-4 pb-4">
+                Start Here 
+            </p>
+            <div class="row">
+                <div class="col-12 col-md-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{%  url 'accounts:register' %}" class="btn btn-primary p-4 pl-5 pr-5 rounded-sm">Create Account</a>
+                        </div>
+                        <div class="col-12">
+                            <span> or </span>
+                        </div>
+                        <div class="col-12"> 
+                        <a href="{% url 'login' %}" class="font-weight-600 font-montserrat text-decoration-none">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light mt-3">
+            <div class="container pt-5 pb-5">
+                <div class="text-center mb-4" style="font-size:36px;">
+                     For Teachers
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4 mt-3 mb-3">
+                        <div class="shadow p-3 rounded-lg pb-4 pt-4 text-center" style="background-color: white;">
+                            <h3 class="pb-3">Create Test</h3>
+                            <p>Teachers can create new Tests. Currently MCQ questions with single option correct type can be added.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mb-3">
+                        <div class="shadow p-3 rounded-lg pb-4 pt-4 text-center" style="background-color: white;">
+                            <h3 class="pb-3">Authorize Students</h3>
+                            <p>Students can take the test only if the teacher permits them. Teacher can either allow or deny the student.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mb-3">
+                        <div class="shadow p-3 rounded-lg pb-4 pt-4 text-center" style="background-color: white;">
+                            <h3 class="pb-3">Add Batches</h3>
+                            <p>Teacher can allow complete batches of students to take test at Once. Thus all the students of a class can be added at once.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-0">
+                <div class="container pt-5 pb-5">
+                    <div class="text-center mb-4" style="font-size:36px;">
+                         For Students
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-4 mt-3 mb-3">
+                            <div class="p-3 rounded-lg pb-4 pt-4 text-center bg-light">
+                                <h3 class="pb-3">Search Test</h3>
+                                <p>Students can search for test from available list of tests and then send a request to join the test.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 mt-3 mb-3">
+                            <div class="p-3 rounded-lg pb-4 pt-4 text-center bg-light">
+                                <h3 class="pb-3">Instant Score</h3>
+                                <p>Once a student attempts the test he/she can immediately see their scores after the test. This is done at the backend. </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 mt-3 mb-3">
+                            <div class="p-3 rounded-lg pb-4 pt-4 text-center bg-light">
+                                <h3 class="pb-3">Previous history</h3>
+                                <p>A student can view all the tests he/she has attempted and thus keeps a history of their performance which can help in improvment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

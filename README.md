@@ -1,12 +1,12 @@
 # Profo
 
-This web project that is specifically designed to digitize the university tests. It is an online test platform that allows teachers to create new tests and students can then attempt the online tests.
+This web project is specifically designed to digitize the university tests. It is an online test platform that allows teachers to create new tests and students can then attempt the online tests.
 
 # Requirements
 
-    * python >= 3.6
-    * django >= 2.1.7
-    * django-widget-tweaks
+* python >= 3.6
+* django >= 2.1.7
+* django-widget-tweaks
 
 # Installation
 
@@ -15,7 +15,11 @@ This web project that is specifically designed to digitize the university tests.
     ```bash
         $ pip install -r requirements.txt
     ```
-3. run the following command to run the project
+3. To create SuperUser run the following Command
+   ```bash
+      $ python manage.py createsuperuser
+   ```
+4. Run the following command to run the project
     ```bash
         $ python manage.py runserver
     ```

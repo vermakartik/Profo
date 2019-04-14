@@ -4,6 +4,7 @@ from Essentials.models import CategoryCasteModel
 from django.contrib.auth.models import User
 from CTest.models import Test, Question, Answer
 import datetime
+from Department import models as dept_models
 
 # Create your models here.
 
@@ -32,6 +33,8 @@ class StudentSummaryModel(models.Model):
    
     student_first_name = models.CharField(max_length=MAX_LENGTH_SINGLE, default=DEFAULT_STRING, null=False, blank=False)
     student_last_name = models.CharField(max_length=MAX_LENGTH_SINGLE, default=DEFAULT_STRING, null=False, blank=False)
+    student_email = models.CharField(max_length=MAX_LENGTH_SINGLE, default =  DEFAULT_STRING, null = False, blank = False)
+
     student_dob = models.DateField(auto_now=False, null=False, blank=False)
     student_gender = models.CharField(max_length=MAX_LENGTH_SINGLE, blank=False, null=False)
     student_caste = models.CharField(choices=CASTE_CATEGORY, max_length=3, default='GEN')
