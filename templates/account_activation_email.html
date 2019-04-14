@@ -1,9 +1,0 @@
-{% autoescape off %}
-Hi {{ user.username }},
-Thank you for your creating Profo Portal account.
-Please click on the link to confirm your registration,
-http://{{ domain }}{% url 'accounts:activate' uid=uid token=token %}
-...
-Regards,
-Team Profo Portal
-{% endautoescape %}
