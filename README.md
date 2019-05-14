@@ -27,3 +27,4 @@ This web project is specifically designed to digitize the university tests. It i
 # Contributors
 
 [Kartik Verma](https://github.com/vermakartik)
+[Jayant Jangir](https://github.com/jayantjangir)
