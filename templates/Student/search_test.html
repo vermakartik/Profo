@@ -4,21 +4,34 @@
 {% endblock %}
 {% block body %}
     {% include 'Student/nav_student.html' %}
-    <div class="container-fluid bg-dark pb-2">
-        <div class="row" style="letter-spacing: 1px">
-            <div class="col-6 text-right text-light">
-                UnAttempted Tests
+    <div class="bg-dark container-fluid">
+        <form method="GET">
+            <div class="row pb-2">
+                <div class="col-6">
+                    <input type="text" name="search_query" placeholder="Search test" class="rounded-lg p-2" style="border:none; width: 100%;"/>
+                    <div class="text-light pt-2">
+                        <input type="radio" value="testName" name="searchBy" checked> Test Name 
+                        <input type="radio" value="teacherName" name="searchBy"> Teacher Name
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <button style="background: none; border: none;" class="text-light pt-2 ml-0 pl-0"><i class="material-icons">search</i></button>
+                        </div>  
+                        <div class="col-6 text-right pt-2">
+                            <a href="{% url 'student:test_list' %}" class="text-danger" style="font-size: 24px;"><i class="material-icons " style="font-size: 32px">close</i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 text-right">
-                <a href="{% url 'student:search_test' %}" class="text-light"><i class="material-icons">search</i></a>
-            </div>
-        </div>
+        </form>
     </div>
     <div class="container p-0">
         <div class="row">
-            {% if test_list.count == 0 %}
+            {% if test_list|length == 0 %}
                 <div class="col-12 mt-4 text-center font-weight-bold" style="color: #e2e1e0; font-size: 24px;">
-                    No Unattempted Tests Available!
+                    No Tests Available!
                 </div>
             {% else %}
                 <div class="col-0 col-md-2"></div>

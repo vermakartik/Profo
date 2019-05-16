@@ -49,16 +49,23 @@ def new_question(request, test_id):
         question = Question(test_id=test)
         setattr(question, 'question_text', request.POST.get('question_text', ""))
         question.save()
+        is_answer_set_to_correct = False
         for index in range(4):
             answer = Answer(
                 question_id = question,
                 answer_text = request.POST.get('form-{!s}-answer_text'.format(index))
             )
             if 'form-{!s}-is_answer_correct'.format(index) in request.POST:
-                setattr(answer, 'is_answer_correct', True)
+                if is_answer_set_to_correct == False:
+                    setattr(answer, 'is_answer_correct', True)
+                    is_answer_set_to_correct = True
+                else:
+                    setattr(answer, 'is_answer_correct', False)
             else:
                 setattr(answer, 'is_answer_correct', False)
             answer.save()
+        if is_answer_set_to_correct == False:
+            return redirect("ctest:edit_question", test_id = test.id, question_id = question.id)
         return redirect('ctest:view_test', test_id = test.id)
     question_form = QuestionForm()
     answer_form_set = formset_factory(AnswerForm, extra=4)
@@ -68,23 +75,40 @@ def edit_question(request, test_id, question_id):
     if request.method == 'POST':
         print(request.POST)
         test =  Test.objects.get(id = test_id)
-        question = Question.objects.get(test_id=test)
+        question = Question.objects.get(id=question_id)
         setattr(question, 'question_text', request.POST.get('question_text', ""))
         question.save()
+        answer_correct = False
+        answer_set = question.answer_set.all()
+        for ans in answer_set:
+            ans.delete()
         for index in range(4):
             answer = Answer(
                 question_id = question,
                 answer_text = request.POST.get('form-{!s}-answer_text'.format(index))
             )
             if 'form-{!s}-is_answer_correct'.format(index) in request.POST:
-                setattr(answer, 'is_answer_correct', True)
+                if answer_correct == False:
+                    setattr(answer, 'is_answer_correct', True)
+                    answer_correct = True
+                else:
+                    setattr(answer, 'is_answer_correct', False)
             else:
                 setattr(answer, 'is_answer_correct', False)
             answer.save()
+        if answer_correct == False:
+            return redirect("ctest:edit_question", test_id = test.id, question_id = question.id)
         return redirect('ctest:view_test', test_id = test.id)
-    question_form = QuestionForm()
-    answer_form_set = formset_factory(AnswerForm, extra=4)
-    return render(request, 'CTest/new_question.html', {'question_form': question_form, 'answer_form_set': answer_form_set, "test_id": test_id})
+    test =  Test.objects.get(id = test_id)
+    question = Question.objects.get(id=question_id)
+    print(question)
+    # print(answer_set)
+    question_form = QuestionForm(initial = {'question_text': question.question_text}) 
+    AnswerFormSet  = formset_factory(AnswerForm, extra = 0)
+    answer_form_set = AnswerFormSet(initial = [
+            {'answer_text': ans.answer_text, 'is_answer_correct' : ans.is_answer_correct} for ans in question.answer_set.all()
+        ])
+    return render(request, 'CTest/edit_question.html', {'question_form': question_form, 'answer_form_set': answer_form_set, "test_id": test_id, 'question_id': question.id})
 
 def publish_test(request, test_id):
     test = Test.objects.get(id = test_id)

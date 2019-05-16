@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    Verify Account
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mt-4 rounded p-5" style="background-color: #FFE082;">
+                    <span style="font-size: 24px;">Please Verify Your Account, before You can Login!</span> <br />
+                    A Link has been sent to your email.
+                    <div class="mt-4">
+                        <a href="{% url 'accounts:resend_email' %}" class="btn btn-primary m-2 rounded-0">Resend Link</a>
+                        <a href="{% url 'logout' %}" class="btn btn-secondary rounded-0">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+    Block
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center rounded mt-2 p-5" style="background-color: #FFAB91;">
+                {% if is_invalid %}
+                <span style="font-size: 24px;">Invalid Activation Link</span>
+                <div>
+                    <a class="text-decoration-none" href="{% url 'accounts:resend_email' %}">Resend Email</a>
+                </div>
+                {% else %}
+                <span style="font-size: 24px;">Your Email Has Been Verfied!</span>
+                <div>
+                    <a class="text-decoration-none" href="{% url 'user:home' %}">Go To Home</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

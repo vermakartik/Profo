@@ -11,7 +11,9 @@
                     <span class="align-middle">
                         <span class="font-weight-500">Time:</span> 
                         {{test.available_time.hour}}h : {{test.available_time.minute}}m: {{test.available_time.second}}s 
-                        <a href="#" class="text-decoration-none text-light"><i class="material-icons align-middle">edit </i></a>
+                        {% if test.is_published == False %}
+                            <a href="#" class="text-decoration-none text-light"><i class="material-icons align-middle">edit </i></a>
+                        {% endif %}
                     </span>
                 </div>
             </div>
@@ -36,7 +38,14 @@
             {% for question in test.question_set.all %}
                 <div class="rounded-lg p-2 mt-2 mb-2 border bg-light">
                     <div class="font-weight-600">
-                        <p><span>Q{{forloop.counter}}.</span> {{question.question_text}}</p>
+                        <p style="word-wrap: break-word; overflow-wrap: break-word;">
+                            {% if test.is_piblished == False %}
+                                <span> 
+                                    <a href="{% url 'ctest:edit_question' test_id=test.id question_id=question.id %} " class="text-decoration-none text-dark"><i class="material-icons align-middle">edit</i></a>
+                                </span> 
+                            {% endif %}
+                            <span>Q{{forloop.counter}}.</span> {{question.question_text}}
+                        </p>
                     </div>
                     <div>
                         <ol type="a" class="text-left" >

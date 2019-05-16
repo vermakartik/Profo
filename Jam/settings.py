@@ -144,6 +144,6 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'staticfiles')
 ]
 
-LOGIN_REDIRECT_URL="user:home"
+LOGIN_REDIRECT_URL="accounts:verify_account"
 LOGOUT_REDIRECT_URL="login"
 

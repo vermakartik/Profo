@@ -17,3 +17,7 @@ class UserStatus(models.Model):
 
     def __str__(self):
         return "__user__" + self.user.username + "__status__" + str(self.user_status) + "__."
+    
+class UserEssentials(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key = True)
+    user_email_verified = models.BooleanField(default=False)

@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
 from Student import forms
 from Student import models
+from Teachers import models as TModels
 from CTest.models import Test
 from django.contrib.auth.models import User
 from accounts import models as accounts_models
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
+from django.db.models import Q
 from CTest import utils as ctest_utils
 
 student_model_fields = [
@@ -84,8 +86,16 @@ def getTestList(request):
         student_user = models.StudentSummaryModel.objects.get(student_user = student_id)
         print(student_id)
         prev_test_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED)
-        test_list = Test.objects.all().filter(is_published = True).exclude(id__in = prev_test_list)
-        return render(request, 'Student/test_list.html', {'test_list': test_list})
+        prev_test_list_cus = []
+        for test in prev_test_list:
+                prev_test_list_cus.append(test.test_id)
+        print(prev_test_list_cus)
+        test_list = Test.objects.all().filter(is_published = True)
+        f_tests = []
+        for test in test_list:
+                if test not in prev_test_list_cus:
+                        f_tests.append(test)
+        return render(request, 'Student/test_list.html', {'test_list': f_tests})
 
 def test_join(request):
         print("test Joining Called!")
@@ -137,3 +147,39 @@ def pervious_test(request):
         context_obj['test_list'] = tests_list
         return render(request, 'Student/prev_test_list.html', context_obj)
 
+def search_test(request):
+        context = {}
+        if 'search_query' in request.GET and 'searchBy' in request.GET:
+                search_query = request.GET.get('search_query')
+                searchBy = request.GET.get('searchBy')
+                student_id = User.objects.get(username = request.user)
+                print(student_id)
+                student_user = models.StudentSummaryModel.objects.get(student_user = student_id)
+                prev_test_list = models.StudentTestModel.objects.filter(student_id = student_user, attempt_status = models.INT_ATTEMPTED)
+                prev_test_list_cus = []
+                for test in prev_test_list:
+                        prev_test_list_cus.append(test.test_id)
+                print(prev_test_list_cus)
+                # print(prev_test_list)
+                if searchBy == 'testName':
+                        test_list = Test.objects.all().filter(is_published = True, test_name__icontains=search_query)
+                        print('test list contains ....')
+                        print(test_list)
+                        teacher_tests = []
+                        for test in test_list:
+                                if test not in prev_test_list_cus:
+                                        teacher_tests.append(test)
+                        context['test_list'] = teacher_tests
+                elif searchBy == 'teacherName':
+                        teacher_list = TModels.Teacher.objects.filter(Q(teacher_first_name__icontains = search_query) | Q(teacher_last_name__icontains = search_query) | Q(teacher_user__username__icontains = search_query))
+                        print('teacher-list contains .... ')
+                        print(teacher_list)
+                        teacher_tests = []
+                        for teacher in teacher_list:
+                                tests = teacher.test_set.filter(is_published = True)
+                                for test in tests:
+                                        if test not in prev_test_list_cus:
+                                                teacher_tests.append(test)
+                        print(teacher_tests)    
+                        context['test_list'] = teacher_tests 
+        return render(request, 'Student/search_test.html', context)
